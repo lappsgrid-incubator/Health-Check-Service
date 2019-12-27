@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+LOCK=/tmp/health-monitor.awol
+
+function send() {
+   echo $1 | mail -s "Health Monitor" suderman@cs.vassar.edu -r health@lappsgrid.org
+}
+
+curl https://api.lappsgrid.org/health/ping > /dev/null
+if [ $? = 0 ] ; then
+   #echo "Service ponged"
+   if [ -e $LOCK ] ; then
+      	send "The Health Monitor service is back online."
+        rm $LOCK
+   fi
+   exit 0
+fi
+
+if [ -e $LOCK ] ; then
+#   send "The Health Monitor service is still offline."
+   exit 0
+fi
+
+date > $LOCK
+send "The Health Monitor service is not responding to pings and is most likely offline."

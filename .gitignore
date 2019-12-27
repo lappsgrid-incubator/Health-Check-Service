@@ -1,0 +1,11 @@
+/target
+.idea/
+VERSION
+Version.java
+
+*.iml
+*.ipr
+*.iws
+
+*.jar
+*.log
