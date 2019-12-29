@@ -34,8 +34,8 @@ class StatusService {
 //    @Autowired
     private UpdateService updater
 
-    private Services vassarServices
-    private Services brandeisServices
+    protected Services vassarServices
+    protected Services brandeisServices
 //    private ScheduledExecutorService executor
     Map<String,Integer> table
 
@@ -219,7 +219,7 @@ class StatusService {
                     buffer.append(format(vassarDown))
                     buffer.append("\n")
                 }
-                executor.schedule(new Mailer("suderman@cs.vassar.edu", buffer.toString()), 0, TimeUnit.MILLISECONDS)
+                threads.schedule(new Mailer("suderman@cs.vassar.edu", buffer.toString()), 0, TimeUnit.MILLISECONDS)
             }
             if (brandeisUp.size() > 0 || brandeisDown.size() > 0) {
                 logger.info("Sending mail for Brandeis services")
@@ -234,7 +234,7 @@ class StatusService {
                     buffer.append(format(brandeisDown))
                     buffer.append("\n")
                 }
-                executor.schedule(new Mailer("marc@cs.brandeis.edu, krim@brandeis.edu", buffer.toString()), 0, TimeUnit.MILLISECONDS)
+                threads.schedule(new Mailer("marc@cs.brandeis.edu, krim@brandeis.edu", buffer.toString()), 0, TimeUnit.MILLISECONDS)
             }
         }
 

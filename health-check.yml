@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  nlpaas:
+  health:
     image: docker.lappsgrid.org/lappsgrid/health
     ports:
       - 8083:8080
