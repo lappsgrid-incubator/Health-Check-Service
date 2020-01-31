@@ -7,6 +7,7 @@ NAME=health
 IMAGE=$(GROUP)/$(NAME)
 TARGET=target/$(JAR)
 TAG=$(REPO)/$(IMAGE)
+VERSION=$(shell cat VERSION)
 
 jar:
 	mvn package
@@ -33,6 +34,10 @@ push:
 	docker tag $(IMAGE) $(TAG)
 	docker push $(TAG)
 
+release:
+	docker tag $(IMAGE) $(TAG):$(VERSION)
+	docker push $(TAG):$(VERSION)
+	
 update:
 	curl -i http://129.114.17.83:9000/api/webhooks/6df201d2-808c-427a-a855-df1b2b6edd56
 	

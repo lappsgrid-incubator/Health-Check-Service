@@ -66,7 +66,7 @@ class StatusController {
     }
 
     @GetMapping(path="/status", produces = "text/html")
-    ResponseEntity<String> systemStatus() {
+    ResponseEntity<String>  systemStatus() {
         String html = HTML.render('System Status') {
             h1 'System Status'
             table {

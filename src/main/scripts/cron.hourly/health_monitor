@@ -6,8 +6,9 @@ function send() {
    echo $1 | mail -s "Health Monitor" suderman@cs.vassar.edu -r health@lappsgrid.org
 }
 
-curl https://api.lappsgrid.org/health/ping > /dev/null
-if [ $? = 0 ] ; then
+#curl https://api.lappsgrid.org/health/ping > /dev/null
+pong=`curl https://api.lappsgrid.org/health/ping`
+if [[ $pong = 'pong' ]] ; then
    #echo "Service ponged"
    if [ -e $LOCK ] ; then
       	send "The Health Monitor service is back online."
