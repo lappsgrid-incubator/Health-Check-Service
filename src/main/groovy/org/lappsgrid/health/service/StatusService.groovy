@@ -138,6 +138,7 @@ class StatusService {
 
         void run() {
             int errors = 0
+            up = down = 0
             try {
                 check(vassarServices)
             }
@@ -162,7 +163,7 @@ class StatusService {
         void check(Services services) {
             Jedis redis = new Jedis(Settings.REDIS_HOST)
             logger.info("Checking services for {}", services.url)
-            up = down = 0
+//            up = down = 0
             List brandeisUp = []
             List brandeisDown = []
             List vassarUp = []
@@ -219,7 +220,7 @@ class StatusService {
                     buffer.append(format(vassarDown))
                     buffer.append("\n")
                 }
-                threads.schedule(new Mailer("suderman@cs.vassar.edu", buffer.toString()), 0, TimeUnit.MILLISECONDS)
+                threads.schedule(new Mailer("suderman@cs.vassar.edu", buffer.toString()))
             }
             if (brandeisUp.size() > 0 || brandeisDown.size() > 0) {
                 logger.info("Sending mail for Brandeis services")
@@ -234,7 +235,7 @@ class StatusService {
                     buffer.append(format(brandeisDown))
                     buffer.append("\n")
                 }
-                threads.schedule(new Mailer("marc@cs.brandeis.edu, krim@brandeis.edu", buffer.toString()), 0, TimeUnit.MILLISECONDS)
+                threads.schedule(new Mailer("marc@cs.brandeis.edu, krim@brandeis.edu", buffer.toString()))
             }
         }
 
