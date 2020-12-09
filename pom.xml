@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <groovy.version>2.5.8</groovy.version>
+        <groovy.version>3.0.7</groovy.version>
         <springfox-version>2.9.2</springfox-version>
     </properties>
 
